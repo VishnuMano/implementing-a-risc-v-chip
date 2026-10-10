@@ -1,0 +1,19 @@
+name: Verify RTL and firmware
+on: [push, pull_request]
+jobs:
+  simulation:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install tools
+        run: sudo apt-get update && sudo apt-get install -y iverilog yosys gcc-riscv64-unknown-elf binutils-riscv64-unknown-elf
+      - name: Simulate and synthesize
+        run: make CC_PREFIX=riscv64-unknown-elf- test synth
+      - uses: actions/upload-artifact@v4
+        with:
+          name: simulation-and-synthesis
+          path: |
+            build/uart.txt
+            build/bus.csv
+            build/synthesis.log
+            results/baseline.json

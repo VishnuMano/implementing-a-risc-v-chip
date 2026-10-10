@@ -1,0 +1,6 @@
+read_verilog third_party/picorv32/picorv32.v rtl/boot_rom.v rtl/uart_tx.v rtl/soc.v
+hierarchy -check -top soc
+synth -top soc
+check -assert
+write_verilog -noattr build/soc_generic.v
+tee -o build/synthesis.json stat -json
