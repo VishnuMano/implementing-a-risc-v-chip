@@ -1,0 +1,51 @@
+{
+  "unit": "microseconds",
+  "bit_period_us": 8.7,
+  "byte_hex": "48",
+  "character": "H",
+  "points": [
+    [
+      0.0,
+      0
+    ],
+    [
+      34.8,
+      1
+    ],
+    [
+      43.5,
+      0
+    ],
+    [
+      60.9,
+      1
+    ],
+    [
+      69.6,
+      0
+    ],
+    [
+      78.3,
+      1
+    ],
+    [
+      87.0,
+      1
+    ]
+  ],
+  "bits": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1
+  ],
+  "source": "build/soc.vcd",
+  "vcd_timescale": "1 ps",
+  "start_time_ps": 301750000
+}

@@ -10,6 +10,8 @@ result = {
     "schema_version": 1,
     "stage": "generic_synthesis",
     "technology_mapped": False,
+    "verification": {name: (root / f"build/{name}-test.log").exists() and "PASS" in (root / f"build/{name}-test.log").read_text()
+                     for name in ["system", "bus", "gate"]},
     "yosys_version": subprocess.check_output(["yosys", "-V"], text=True).strip(),
     "synthesis": stats,
     "simulation": {"uart_transcript": (root / "build/uart.txt").read_text() if (root / "build/uart.txt").exists() else None,

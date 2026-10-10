@@ -1,0 +1,48 @@
+{
+  "stage": "mapped synthesis / pre-placement STA",
+  "strategy": "AREA 0",
+  "runs": [
+    {
+      "run": "baseline",
+      "period_ns": 100,
+      "target_mhz": 10.0,
+      "area_um2": 445444.7168,
+      "cells": 30496,
+      "setup_slack_ns": 13.048925864744412,
+      "corners": {
+        "nom_tt_025C_1v80": 36.87513687662502,
+        "nom_ss_100C_1v60": 13.048925864744412,
+        "nom_ff_n40C_1v95": 55.388335485870805
+      },
+      "source_state": "flow/runs/baseline/12-openroad-staprepnr/state_out.json"
+    },
+    {
+      "run": "clock-50",
+      "period_ns": 50,
+      "target_mhz": 20.0,
+      "area_um2": 445444.7168,
+      "cells": 30496,
+      "setup_slack_ns": -36.95107258094331,
+      "corners": {
+        "nom_tt_025C_1v80": -13.124865121776482,
+        "nom_ss_100C_1v60": -36.95107258094331,
+        "nom_ff_n40C_1v95": 5.38833704018308
+      },
+      "source_state": "flow/runs/clock-50/12-openroad-staprepnr/state_out.json"
+    },
+    {
+      "run": "clock-20",
+      "period_ns": 20,
+      "target_mhz": 50.0,
+      "area_um2": 445444.7168,
+      "cells": 30496,
+      "setup_slack_ns": -66.95106880618492,
+      "corners": {
+        "nom_tt_025C_1v80": -43.12486134701809,
+        "nom_ss_100C_1v60": -66.95106880618492,
+        "nom_ff_n40C_1v95": -24.61166096141542
+      },
+      "source_state": "flow/runs/clock-20/12-openroad-staprepnr/state_out.json"
+    }
+  ]
+}

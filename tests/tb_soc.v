@@ -6,7 +6,11 @@ module tb_soc;
     reg resetn = 0;
     wire tx, trap;
     wire [7:0] gpio;
+`ifdef GATE_TEST
+    soc dut (.clk(clk), .resetn(resetn),
+`else
     soc #(.UART_DIV(DIV)) dut (.clk(clk), .resetn(resetn),
+`endif
         .uart_tx_o(tx), .gpio_o(gpio), .trap_o(trap));
     reg [7:0] byte_value;
     reg [8*64-1:0] message = 0;
@@ -14,10 +18,17 @@ module tb_soc;
     integer cycles = 0;
     integer out_file, trace_file;
     initial begin
+`ifdef GATE_TEST
+        $dumpfile("build/gate.vcd");
+        $dumpvars(1, tb_soc);
+        out_file = $fopen("build/gate_uart.txt", "w");
+        trace_file = $fopen("build/gate_bus.csv", "w");
+`else
         $dumpfile("build/soc.vcd");
         $dumpvars(0, tb_soc);
         out_file = $fopen("build/uart.txt", "w");
         trace_file = $fopen("build/bus.csv", "w");
+`endif
         $fdisplay(trace_file, "cycle,address,write_strobes,write_data,read_data");
         repeat (8) @(negedge clk);
         resetn = 1;
