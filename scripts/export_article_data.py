@@ -2,8 +2,10 @@
 """Export measured data and exact source excerpts for the static article."""
 import csv
 import hashlib
+import html
 import json
 import pathlib
+import re
 import shutil
 import subprocess
 import sys
@@ -47,6 +49,11 @@ if (root/"results/physical.json").exists():
     for image in (root/"results/images").glob("*.png"):
         shutil.copy2(image,target/image.name)
 (target/"data.json").write_text(json.dumps(data,indent=2)+"\n")
+article=target.parent/"implementing-a-risc-v-chip.html"
+if article.exists():
+    source=article.read_text()
+    source=re.sub(r'(<pre id="firmware-code"><code>).*?(</code></pre>)',lambda m:m[1]+html.escape(data["firmware"]["text"])+m[2],source,flags=re.S)
+    article.write_text(source)
 shutil.copy2(root/"results/baseline.json",target/"generic-synthesis.json")
 shutil.copy2(root/"build/uart.txt",target/"uart.txt")
 shutil.copy2(root/"build/bus.csv",target/"bus.csv")

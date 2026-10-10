@@ -19,10 +19,19 @@ module tb_soc;
     integer out_file, trace_file;
     initial begin
 `ifdef GATE_TEST
+`ifdef PNR_TEST
+        $dumpfile("build/pnr.vcd");
+`else
         $dumpfile("build/gate.vcd");
+`endif
         $dumpvars(1, tb_soc);
+`ifdef PNR_TEST
+        out_file = $fopen("build/pnr_uart.txt", "w");
+        trace_file = $fopen("build/pnr_bus.csv", "w");
+`else
         out_file = $fopen("build/gate_uart.txt", "w");
         trace_file = $fopen("build/gate_bus.csv", "w");
+`endif
 `else
         $dumpfile("build/soc.vcd");
         $dumpvars(0, tb_soc);
@@ -37,9 +46,11 @@ module tb_soc;
         cycles <= cycles + 1;
         if (resetn && trap) $fatal(1, "CPU trapped at cycle %0d", cycles);
         if (cycles > 250000) $fatal(1, "Firmware timeout");
+`ifndef PNR_TEST
         if (resetn && dut.mem_valid && dut.mem_ready)
             $fdisplay(trace_file, "%0d,%08x,%x,%08x,%08x", cycles,
                 dut.mem_addr, dut.mem_wstrb, dut.mem_wdata, dut.mem_rdata);
+`endif
     end
     // Decode the physical UART output, rather than observing its write register.
     initial forever begin

@@ -1,0 +1,6 @@
+The generated GDS includes standard-cell geometry from the SkyWater SKY130 PDK.
+Copyright 2020 The SkyWater PDK Authors.
+License: Apache-2.0; see SKY130-LICENSE.
+Upstream: https://github.com/google/skywater-pdk
+Prepared PDK revision: 8afc8346a57fe1ab7934ba5a6056ea8b43078e71 (Ciel/Open PDKs).
+The PDK itself is fetched separately and is not vendored in this repository.

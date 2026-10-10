@@ -1,0 +1,7 @@
+{
+  "run": "baseline",
+  "netlist": "flow/runs/baseline/52-openroad-fillinsertion/soc.nl.v",
+  "passed": true,
+  "sdf_annotated": false,
+  "transcript": "Hello from RTL!\nchecksum=0x00002040\nPASS\n"
+}

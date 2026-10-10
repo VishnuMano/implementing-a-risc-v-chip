@@ -1,5 +1,6 @@
 CC_PREFIX ?= riscv64-elf-
 PYTHON ?= python3
+RUN_TAG ?= baseline
 SOURCES = third_party/picorv32/picorv32.v rtl/boot_rom.v rtl/uart_tx.v rtl/soc.v
 CFLAGS = -march=rv32i -mabi=ilp32 -Os -ffreestanding -fno-builtin -fno-pic -msmall-data-limit=0 -Wall -Wextra
 .PHONY: all firmware test test-bus test-gate synth physical clean
@@ -33,6 +34,6 @@ synth: firmware
 	yosys -Q -T -l build/synthesis.log scripts/synth.ys
 	$(PYTHON) scripts/collect_results.py
 physical: firmware
-	$(PYTHON) -m librelane --docker-no-tty --dockerized --pdk-root $(CURDIR)/build/pdk --condensed -j 8 flow/config.json
+	$(PYTHON) scripts/run_flow.py --tag $(RUN_TAG)
 clean:
 	rm -rf build
